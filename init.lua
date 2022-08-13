@@ -1,11 +1,8 @@
-
 require('impatient')
 
-require('options')
-require('hotkeys')
-require('pluggins')
+require('user.plugins')
+require('user.options')
+require('user.keymaps')
 
-
-require('setting.autopairs')
-
+vim.cmd "colorscheme tokyonight"
 

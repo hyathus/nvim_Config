@@ -2,6 +2,7 @@ vim.keymap.set('n', '<Leader>w', ':write<CR>')
 vim.keymap.set('n', '<Leader>q', ':q<CR>')
 
 vim.keymap.set('n','<Leader>e', ':NvimTreeOpen<CR>')
+vim.keymap.set('n', '<Leader>r', ':Ntree<CR>')
 
 -- Buffer  Tab move
 
