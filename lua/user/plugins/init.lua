@@ -40,7 +40,6 @@ return require('packer').startup({
 		'nvim-lua/popup.nvim',
 		'kyazdani42/nvim-web-devicons'
 	}
-   
 -----------------------------------------------------------------
 	-- Themes
 -----------------------------------------------------------------
@@ -80,18 +79,16 @@ return require('packer').startup({
 ---               LSP
 --------------------------------------------------------------------
    use {
-    -- "williamboman/mason.nvim",
-    -- "williamboman/mason-lspconfig.nvim",
+     "williamboman/mason.nvim",
+     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
     'onsails/lspkind-nvim',
-    config = function() 
+    config = function()
           require('user.lsp.lspconfig')
-          -- require('user.lsp.mason')
-          -- require('user.lsp.mason-lsp')
+          require('user.lsp.mason')
 
     end,
-
-} 
+}
 
 
 use {
@@ -125,15 +122,18 @@ use {
         end,
    }
 
+   -- COC Server  
+   use {'neoclide/coc.nvim', branch = 'master', run = 'yarn install --frozen-lockfile' }
+
 
 --------------------------------------------------------------------
 	--Commentary
 	use 'tpope/vim-commentary'
-	
+
 	-- Twilight	
 	use {
 		"folke/twilight.nvim",
-        config = function() require('user.twilight-config') 
+        config = function() require('user.twilight-config')
         end,
 	}
  -----------------------------------------------------------------------------

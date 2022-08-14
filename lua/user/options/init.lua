@@ -35,7 +35,14 @@ set.ruler = true
 set.mouse = 'a'
 set.syntax = false
 set.clipboard = "unnamedplus"
+
+
 vim.opt.termguicolors = true
+vim.opt.winblend = 0
+vim.opt.wildoptions = 'pum'
+vim.opt.pumblend = 5
+
+
 set.lazyredraw =true
 set.updatetime = 100
 

@@ -21,37 +21,9 @@ require("null-ls").setup({
         '--no-keep-simple-function-one-line', '--no-break-after-operator', '--column-limit=100',
         '--break-after-table-lb', '--indent-width=2'
       }
-    }), formatting.isort, formatting.codespell.with({filetypes = {'markdown'}})
+    }),
+    formatting.isort, formatting.codespell.with({filetypes = {'markdown'}})
   },
-  on_attach = function(client)
-    if client.resolved_capabilities.document_formatting then
-      vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()")
-    end
-    vim.cmd [[
-      augroup document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]]
-  end    },
+  }
 })
 
-
-local status, prettier = pcall(require, "prettier")
-if (not status) then return end
-
-prettier.setup {
-  bin = 'prettierd',
-  filetypes = {
-    "css",
-    "html",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "json",
-    "scss",
-    "less"
-  }
-}
