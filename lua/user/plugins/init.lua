@@ -20,17 +20,13 @@ return require('packer').startup({
 --
 	use 'lewis6991/impatient.nvim'
 	-- Startuptime
-	use 'dstein64/vim-startuptime' 
-   --use {
-   --   'declancm/cinnamon.nvim',
-   --   config = function() require('cinnamon').setup()
---end
-   --}
-   --use {
-  --"max397574/better-escape.nvim",
-  --config = function() require("better_escape").setup()
-   -- end
---}
+	use 'dstein64/vim-startuptime'
+    use {
+        'karb94/neoscroll.nvim',
+        event = "WinScrolled",
+        config = function() require("neoscroll").setup()
+        end
+    }
 ------------------------------------------------------------------
 --               lua
 ----------------------------------------------------------------
@@ -46,7 +42,7 @@ return require('packer').startup({
 
 	use 'folke/tokyonight.nvim'
 	use'projekt0n/github-nvim-theme'
- 
+
 	-- use 'joshdick/onedark' Instalarlo por medio de Plug.
 	-- safv12/andromeda.vim Igual que el de arriba.
 
@@ -55,23 +51,16 @@ return require('packer').startup({
 ------------------------------------------------------------------
 
 	use {
-		'nvim-lualine/lualine.nvim',
-        event = "BufWinEnter",
-        config = function() require('user.lualine-config') 
+		'tamton-aquib/staline.nvim',
+        event = "BufRead",
+        config = function() require('user.staline-config')
         end,
 	}
-	use { 
-		'akinsho/bufferline.nvim', 
-        event = "BufWinEnter",
-        config = function() require('user.bufferline-config')
-        end,
-	}
-
 	-- Nvimtree
     use 'christoomey/vim-tmux-navigator'
-	use {	
-		'kyazdani42/nvim-tree.lua',
-        config = function() require('user.nvim-tree-config') 
+	use {
+	'kyazdani42/nvim-tree.lua',
+        config = function() require('user.nvim-tree-config')
         end,
 	}
 
@@ -89,13 +78,16 @@ return require('packer').startup({
 
     end,
 }
+  use {
+    'glepnir/lspsaga.nvim',
+    config = function() require('user.lsp.lspsaga') end 
+}
 
-
-use {
+  use {
         'hrsh7th/nvim-cmp',
         config = function() require('user.lsp.cmp') end,
         requires = {
-            -- CMP Sources
+          -- CMP Sources
             'hrsh7th/cmp-nvim-lsp-signature-help',
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-nvim-lua',
@@ -121,10 +113,12 @@ use {
         config = function() require('user.lsp.null-lsp')
         end,
    }
-
-   -- COC Server  
-   use {'neoclide/coc.nvim', branch = 'master', run = 'yarn install --frozen-lockfile' }
-
+   -- Prettier
+   use {
+     'MunifTanjim/prettier.nvim',
+     config = function() require('user.lsp.prettier')
+     end
+   }
 
 --------------------------------------------------------------------
 	--Commentary
@@ -139,12 +133,13 @@ use {
  -----------------------------------------------------------------------------
  --                       Git
  ----------------------------------------------------------------------------
-   use {	
+   use {
 	"lewis6991/gitsigns.nvim",
     config = function()
-    require('gitsigns').setup() 
-  end
-   } 
+    require('gitsigns').setup()
+  end,
+  event = "BufRead",
+   }
 ------------------------------------------------------------------------------
 --                          IDE
 ------------------------------------------------------------------------------
@@ -165,17 +160,21 @@ use {
            })
         end,
    }
-    use { 
+    use { -- Indent Blankline
 	    "lukas-reineke/indent-blankline.nvim",
             config = function() require('user.indent-config')
             end,
    }
-
+    -- Colorizer
+    use { 'norcalli/nvim-colorizer.lua',
+    config = function() require('user.colorizer')
+    end
+  }
 	-- Treesitter
-	use { 
+	use {
        'nvim-treesitter/nvim-treesitter',
        run = ":TSUpdate",
-       config = function() require('user.treesitter-config') 
+       config = function() require('user.treesitter-config')
        end,
        requires = {
           'windwp/nvim-ts-autotag',
@@ -191,13 +190,10 @@ use {
    -- Telescope
    use {
       'nvim-telescope/telescope.nvim',
-      requires = { 
+      requires = {
          'nvim-telescope/telescope-media-files.nvim',
          "nvim-telescope/telescope-project.nvim",
-         { 
-            "nvim-telescope/telescope-fzf-native.nvim",
-            run = "make"
-         },
+         'nvim-telescope/telescope-file-browser.nvim'
        },
        config = function() require('user.telescope-config')
        end,

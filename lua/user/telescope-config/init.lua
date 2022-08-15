@@ -1,32 +1,44 @@
-require('telescope').setup{
+local status, telescope = pcall(require, "telescope")
+if (not status) then return end
+local actions = require('telescope.actions')
+local builtin = require("telescope.builtin")
+
+local function telescope_buffer_dir()
+  return vim.fn.expand('%:p:h')
+end
+
+local fb_actions = require "telescope".extensions.file_browser.actions
+
+telescope.setup {
   defaults = {
-    -- Default configuration for telescope goes here:
-    -- config_key = value,
     mappings = {
-      i = {
-        -- map actions.which_key to <C-h> (default: <C-/>)
-        -- actions.which_key shows the mappings for your picker,
-        -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-        ["<C-h>"] = "which_key"
-      }
-    }
+      n = {
+        ["q"] = actions.close
+      },
+    },
   },
-  pickers = {
-    -- Default configuration for builtin pickers goes here:
-    -- picker_name = {
-    --   picker_config_key = value,
-    --   ...
-    -- }
-    -- Now the picker_config_key will be applied every time you call this
-    -- builtin picker
-  },
-  extensions = {
-     media_files = {
-         -- filetypes whitelist
-         -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-         filetypes = {"png", "webp", "jpg", "jpeg" },
-         find_cmd = "rg" -- find command (defaults to `fd`)
-    },  
-    -- please take a look at the readme of the extension you want to configure
-  }
 }
+
+-- keymaps
+vim.keymap.set('n', '<Leader>f',
+  function()
+    builtin.find_files({
+      no_ignore = false,
+      hidden = true
+    })
+  end)
+vim.keymap.set('n', ';r', function()
+  builtin.live_grep()
+end)
+vim.keymap.set('n', '\\\\', function()
+  builtin.buffers()
+end)
+vim.keymap.set('n', ';t', function()
+  builtin.help_tags()
+end)
+vim.keymap.set('n', ';;', function()
+  builtin.resume()
+end)
+vim.keymap.set('n', ';e', function()
+  builtin.diagnostics()
+end)

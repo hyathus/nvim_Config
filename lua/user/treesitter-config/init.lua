@@ -1,6 +1,11 @@
-require'nvim-treesitter.install'.compilers = {"gcc"}
+local status, ts = pcall(require, "nvim-treesitter.configs")
+if (not status) then return end
+ts.compilers = {"gcc"}
 
-require'nvim-treesitter.configs'.setup {
+ts.setup {
+highligt = {
+	enable = true
+	},
 	ensure_installed = {
        "html",
        "lua",
@@ -8,24 +13,18 @@ require'nvim-treesitter.configs'.setup {
        "css",
        "javascript",
        "python"
-    },	
-	highligt = {
-		enable = true,
-        additional_vim_regex_highlighting = false,
-	},
+    },
       autotag = {
-		enable = true,
-	},	
+	enable = true,
+	},
 	rainbow = {
-		enable = true,
-		extended_mode = false,
-		max_file_lines = nil,
+	enable = true,
+	extended_mode = false,
+	max_file_lines = nil,
 	},
     autopairs = {
-		enable = true, 
-	},
-    auto_install = true,
-	ignore_install = { ""}
+	enable = true,
+	}
 }
 
 
