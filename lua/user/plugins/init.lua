@@ -12,7 +12,16 @@ return require('packer').startup({
 	use 'wbthomason/packer.nvim'
 
 
+-----------------------------------------------------------------
+--                Vim Script
+------------------------------------------------------------------
+-- Configuracion exclusiva para windows, problemas con Treesitter.
+-- Usar la configuracion normal de Lua en linux
 
+    use 'sheerun/vim-polyglot' 
+    use {
+      'drewtempelmeyer/palenight.vim'
+    }
 
 -----------------------------------------------------------------
                      --Optimiser
@@ -41,7 +50,7 @@ return require('packer').startup({
 -----------------------------------------------------------------
 
 	use 'folke/tokyonight.nvim'
-	use'projekt0n/github-nvim-theme'
+	use 'projekt0n/github-nvim-theme'
 
 	-- use 'joshdick/onedark' Instalarlo por medio de Plug.
 	-- safv12/andromeda.vim Igual que el de arriba.
@@ -49,7 +58,11 @@ return require('packer').startup({
 ------------------------------------------------------------------
 ----        nvim
 ------------------------------------------------------------------
-
+    use {
+        'akinsho/bufferline.nvim', tag = "v2.*",
+        config = function() require('user.bufferline-config')
+        end,
+    }
 	use {
 		'tamton-aquib/staline.nvim',
         event = "BufRead",
@@ -63,62 +76,79 @@ return require('packer').startup({
         config = function() require('user.nvim-tree-config')
         end,
 	}
+-------------------------------------------------------------------
+--         coc.nvim
+-------------------------------------------------------------------
+-- lsp en windows es una mierda o yo soy una mierda para solucionarlo :)
+
+ use({
+                'neoclide/coc.nvim',
+                branch = 'master',
+                run = 'yarn install --frozen-lockfile',
+                config = function() require("user.coc-config")
+              end
+        })
+     
+    use'OmniSharp/omnisharp-vim'
 
 -------------------------------------------------------------------
 ---               LSP
 --------------------------------------------------------------------
-   use {
-     "williamboman/mason.nvim",
-     "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-    'onsails/lspkind-nvim',
-    config = function()
-          require('user.lsp.lspconfig')
-          require('user.lsp.mason')
+-- Usar cuando descubra el problema o me encuentre en linux.
 
-    end,
-}
-  use {
-    'glepnir/lspsaga.nvim',
-    config = function() require('user.lsp.lspsaga') end 
-}
+   -- use {
+   --   "williamboman/mason.nvim",
+   --   "williamboman/mason-lspconfig.nvim",
+   --  "neovim/nvim-lspconfig",
+   --  'onsails/lspkind-nvim',
+   --  config = function()
+   --        require('user.lsp.lspconfig')
+   --        require('user.lsp.mason')
 
-  use {
-        'hrsh7th/nvim-cmp',
-        config = function() require('user.lsp.cmp') end,
-        requires = {
-          -- CMP Sources
-            'hrsh7th/cmp-nvim-lsp-signature-help',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-nvim-lua',
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-calc',
-            'hrsh7th/cmp-cmdline',
-            'f3fora/cmp-spell',
-            'saadparwaiz1/cmp_luasnip',
-            -- 'hrsh7th/cmp-emoji',
-            's1n7ax/nvim-ts-utils',
-            's1n7ax/nvim-snips',
+   --  end,
+-- }
+  -- use {
+   --  'glepnir/lspsaga.nvim',
+   --  config = function() require('user.lsp.lspsaga') end 
+-- }
 
-            -- Other plugins
-            {
-                'L3MON4D3/LuaSnip'
-            },
-        },
-    }
+  -- use {
+   --      'hrsh7th/nvim-cmp',
+   --      config = function() require('user.lsp.cmp') end,
+   --      requires = {
+   --        -- CMP Sources
+   --          'hrsh7th/cmp-nvim-lsp-signature-help',
+   --          'hrsh7th/cmp-buffer',
+   --          'hrsh7th/cmp-nvim-lua',
+   --          'hrsh7th/cmp-nvim-lsp',
+   --          'hrsh7th/cmp-path',
+   --          'hrsh7th/cmp-calc',
+   --          'hrsh7th/cmp-cmdline',
+   --          'f3fora/cmp-spell',
+   --          'saadparwaiz1/cmp_luasnip',
+   --          -- 'hrsh7th/cmp-emoji',
+   --          's1n7ax/nvim-ts-utils',
+   --          's1n7ax/nvim-snips',
 
-     use {
-        'jose-elias-alvarez/null-ls.nvim',
-        config = function() require('user.lsp.null-lsp')
-        end,
-   }
-   -- Prettier
-   use {
-     'MunifTanjim/prettier.nvim',
-     config = function() require('user.lsp.prettier')
-     end
-   }
+   --          -- Other plugins
+   --          {
+   --              'L3MON4D3/LuaSnip'
+   --          },
+   --      },
+   --  }
+
+   --   use {
+   --      'jose-elias-alvarez/null-ls.nvim',
+   --      event = { "BufRead", "BufNewFile" },
+   --      config = function() require('user.lsp.null-lsp')
+   --      end,
+   -- }
+   -- -- Prettier
+   -- use {
+   --   'MunifTanjim/prettier.nvim',
+   --   config = function() require('user.lsp.prettier')
+   --   end
+   -- }
 
 --------------------------------------------------------------------
 	--Commentary
@@ -135,11 +165,11 @@ return require('packer').startup({
  ----------------------------------------------------------------------------
    use {
 	"lewis6991/gitsigns.nvim",
+    event = "BufRead",
     config = function()
     require('gitsigns').setup()
   end,
-  event = "BufRead",
-   }
+     }
 ------------------------------------------------------------------------------
 --                          IDE
 ------------------------------------------------------------------------------
@@ -167,9 +197,18 @@ return require('packer').startup({
    }
     -- Colorizer
     use { 'norcalli/nvim-colorizer.lua',
+    event = { "BufRead", "BufNewFile" },
     config = function() require('user.colorizer')
     end
   }
+    -- Colortis
+    use {
+      "max397574/colortils.nvim",
+      cmd = "Colortils",
+      config = function()
+        require("colortils").setup()
+      end,
+    }
 	-- Treesitter
 	use {
        'nvim-treesitter/nvim-treesitter',
@@ -217,7 +256,16 @@ use {
    }
    --
 ----------------------------------------------------------------------------
+---            Terminal
+----------------------------------------------------------------------------
 
+    use {"akinsho/toggleterm.nvim", tag = 'v2.*', config = function()
+  require("toggleterm").setup( {
+      direction = "float",
+  })
+end}
+
+----------------------------------------------------------------------------
 end,
 config = {
    display = {

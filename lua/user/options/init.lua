@@ -22,7 +22,6 @@ set.splitbelow = true
 set.pumheight = 10
 set.incsearch = true
 set.showmode = false
-set.showtabline = 2
 set.laststatus = 3
 set.completeopt = "menu,menuone,noselect"
 set.virtualedit = "block"
@@ -30,6 +29,7 @@ set.cursorline = true
 set.ignorecase = true
 
 --> Fold Settings
+set.colorcolumn = '80'
 set.foldenable = true
 set.foldmethod = "expr"
 set.foldexpr = "nvim_treesitter#foldexpr()"
@@ -43,6 +43,7 @@ set.termguicolors = true
 set.background = "dark"
 set.number = true
 set.relativenumber = true
+set.cursorcolumn = true
 -- set.title = true
 -- set.titlestring = "  Editing %f..."
 

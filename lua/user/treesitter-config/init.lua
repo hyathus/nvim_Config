@@ -4,7 +4,7 @@ ts.compilers = {"gcc"}
 
 ts.setup {
 highligt = {
-	enable = true
+	enable = false 
 	},
 	ensure_installed = {
        "html",
@@ -12,10 +12,12 @@ highligt = {
        "tsx",
        "css",
        "javascript",
-       "python"
+       "python",
+       "cpp",
+       "c_sharp"
     },
       autotag = {
-	enable = true,
+	enable = true
 	},
 	rainbow = {
 	enable = true,
