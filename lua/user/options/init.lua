@@ -3,7 +3,7 @@ local set = vim.opt
 -- File
 set.spell = false
 set.wrap = false
-set.ruler = false
+set.ruler = true
 set.conceallevel = 2
 set.mouse = "a"
 set.encoding = "UTF-8"
@@ -34,13 +34,11 @@ set.foldenable = true
 set.foldmethod = "expr"
 set.foldexpr = "nvim_treesitter#foldexpr()"
 set.foldlevelstart = 10
-vim.opt.foldtext = 'v:lua.require("essentials").simple_fold()'
 
 --> Visual settings?
 set.pumblend = 5
 set.inccommand = "split"
 set.termguicolors = true
-set.background = "dark"
 set.number = true
 set.relativenumber = true
 set.cursorcolumn = true
@@ -59,3 +57,4 @@ set.breakindent = true
 set.signcolumn = "yes:1"
 -----------------------------------------------
 vim.g.mapleader = ' '
+vim.g.python3_host_prog = "C:/Program Files/Python310/python.exe"

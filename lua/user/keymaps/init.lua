@@ -11,3 +11,9 @@ vim.keymap.set('n', '<S-TAB>', ':bprevious<CR>')
 vim.keymap.set('n', 'bd', ':bdelete<CR>')
 
 vim.keymap.set('v', '<S-a>', ':Commentary<CR>')
+
+--Bracey
+
+vim.keymap.set('n', '<Leader>Q', ':Bracey<CR>')
+vim.keymap.set('n', '<Leader>W', ':BraceyStop<CR>')
+

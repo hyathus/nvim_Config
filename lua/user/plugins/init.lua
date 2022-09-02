@@ -10,19 +10,11 @@ return require('packer').startup({
    function(use)
 
 	use 'wbthomason/packer.nvim'
-
-
 -----------------------------------------------------------------
 --                Vim Script
 ------------------------------------------------------------------
--- Configuracion exclusiva para windows, problemas con Treesitter.
--- Usar la configuracion normal de Lua en linux
-
-    use 'sheerun/vim-polyglot' 
-    use {
-      'drewtempelmeyer/palenight.vim'
-    }
-
+    use 'drewtempelmeyer/palenight.vim'
+    use'OmniSharp/omnisharp-vim'
 -----------------------------------------------------------------
                      --Optimiser
 -----------------------------------------------------------------
@@ -39,7 +31,6 @@ return require('packer').startup({
 ------------------------------------------------------------------
 --               lua
 ----------------------------------------------------------------
-
 	use {
 		'nvim-lua/plenary.nvim',
 		'nvim-lua/popup.nvim',
@@ -48,94 +39,82 @@ return require('packer').startup({
 -----------------------------------------------------------------
 	-- Themes
 -----------------------------------------------------------------
-
 	use 'folke/tokyonight.nvim'
 	use 'projekt0n/github-nvim-theme'
-
-	-- use 'joshdick/onedark' Instalarlo por medio de Plug.
-	-- safv12/andromeda.vim Igual que el de arriba.
-
+	-- use 'joshdick/onedark'
+	-- safv12/andromeda.vim
 ------------------------------------------------------------------
 ----        nvim
 ------------------------------------------------------------------
+    use 'kyazdani42/nvim-tree.lua'
     use {
-        'akinsho/bufferline.nvim', tag = "v2.*",
-        config = function() require('user.bufferline-config')
+        'akinsho/bufferline.nvim', tag = "v2.*",  
+        config = function() 
+            require('bufferline').setup()
         end,
     }
-	use {
-		'tamton-aquib/staline.nvim',
+    use {
+        'tamton-aquib/staline.nvim',
         event = "BufRead",
-        config = function() require('user.staline-config')
-        end,
-	}
-	-- Nvimtree
+        config = function()
+            require('staline').setup()
+        end
+    }
     use 'christoomey/vim-tmux-navigator'
-	use {
-	'kyazdani42/nvim-tree.lua',
-        config = function() require('user.nvim-tree-config')
-        end,
-	}
 -------------------------------------------------------------------
 --         coc.nvim
 -------------------------------------------------------------------
 -- lsp en windows es una mierda o yo soy una mierda para solucionarlo :)
-
- use({
-                'neoclide/coc.nvim',
-                branch = 'master',
-                run = 'yarn install --frozen-lockfile',
-                config = function() require("user.coc-config")
-              end
+    use({
+        'neoclide/coc.nvim',
+        branch = 'master',
+        run = 'yarn install --frozen-lockfile',
+        config = function() require("user.coc-config")
+        end
         })
-     
-    use'OmniSharp/omnisharp-vim'
-
 -------------------------------------------------------------------
 ---               LSP
 --------------------------------------------------------------------
 -- Usar cuando descubra el problema o me encuentre en linux.
 
-   -- use {
-   --   "williamboman/mason.nvim",
-   --   "williamboman/mason-lspconfig.nvim",
-   --  "neovim/nvim-lspconfig",
-   --  'onsails/lspkind-nvim',
-   --  config = function()
-   --        require('user.lsp.lspconfig')
-   --        require('user.lsp.mason')
-
-   --  end,
--- }
+    use {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "neovim/nvim-lspconfig",
+      config = function()
+        require("user.lsp.lspconfig").setup()
+    end,
+     }
   -- use {
    --  'glepnir/lspsaga.nvim',
    --  config = function() require('user.lsp.lspsaga') end 
 -- }
-
-  -- use {
-   --      'hrsh7th/nvim-cmp',
-   --      config = function() require('user.lsp.cmp') end,
-   --      requires = {
-   --        -- CMP Sources
-   --          'hrsh7th/cmp-nvim-lsp-signature-help',
-   --          'hrsh7th/cmp-buffer',
-   --          'hrsh7th/cmp-nvim-lua',
-   --          'hrsh7th/cmp-nvim-lsp',
-   --          'hrsh7th/cmp-path',
+   use {
+         'hrsh7th/nvim-cmp',
+         requires = {
+           -- CMP Sources
+             -- 'hrsh7th/cmp-nvim-lsp-signature-help',
+             'hrsh7th/cmp-buffer',
+             -- 'hrsh7th/cmp-nvim-lua',
+             'onsails/lspkind-nvim',
+             'hrsh7th/cmp-nvim-lsp',
+              'hrsh7th/cmp-path',
    --          'hrsh7th/cmp-calc',
-   --          'hrsh7th/cmp-cmdline',
+             'hrsh7th/cmp-cmdline',
    --          'f3fora/cmp-spell',
-   --          'saadparwaiz1/cmp_luasnip',
+             'saadparwaiz1/cmp_luasnip',
    --          -- 'hrsh7th/cmp-emoji',
    --          's1n7ax/nvim-ts-utils',
    --          's1n7ax/nvim-snips',
 
-   --          -- Other plugins
-   --          {
-   --              'L3MON4D3/LuaSnip'
-   --          },
-   --      },
-   --  }
+             -- Other plugins
+             {
+                 'L3MON4D3/LuaSnip',
+                 'rafamadriz/friendly-snippets'
+             },
+         },
+         config = function() require('user.lsp.cmp') end,
+     }
 
    --   use {
    --      'jose-elias-alvarez/null-ls.nvim',
@@ -149,11 +128,10 @@ return require('packer').startup({
    --   config = function() require('user.lsp.prettier')
    --   end
    -- }
-
---------------------------------------------------------------------
+--------------------------------------------------------------------------------
 	--Commentary
+-------------------------------------------------------------------------------
 	use 'tpope/vim-commentary'
-
 	-- Twilight	
 	use {
 		"folke/twilight.nvim",
@@ -212,59 +190,59 @@ return require('packer').startup({
 	-- Treesitter
 	use {
        'nvim-treesitter/nvim-treesitter',
-       run = ":TSUpdate",
+       run = ':TSUpdate',
        config = function() require('user.treesitter-config')
        end,
        requires = {
           'windwp/nvim-ts-autotag',
           'p00f/nvim-ts-rainbow',
-       },
+       }, 
     }
-
+    -- Bracey
+    use 'turbio/bracey.vim'
 -------------------------------------------------------------------------
----      FZF Finder
+---                       FZF Finder
 -------------------------------------------------------------------------
-
-
    -- Telescope
    use {
       'nvim-telescope/telescope.nvim',
       requires = {
          'nvim-telescope/telescope-media-files.nvim',
          "nvim-telescope/telescope-project.nvim",
-         'nvim-telescope/telescope-file-browser.nvim'
+         'nvim-telescope/telescope-file-browser.nvim',
        },
-       config = function() require('user.telescope-config')
+       config = function() 
+
+           require('user.telescope-config')
+           require('telescope').load_extension('media_files')
+
        end,
    }
-
 ----------------------------------------------------------------------------
 --                          Buffers
 ----------------------------------------------------------------------------
-
 use {
     "kwkarlwang/bufresize.nvim",
-    config = function()
+     config = function()
         require("bufresize").setup()
    end,
 }
-
    use {
      'mrjones2014/smart-splits.nvim',
      config = function() require('user.smart-split-config')
      end,
    }
-   --
 ----------------------------------------------------------------------------
 ---            Terminal
 ----------------------------------------------------------------------------
-
-    use {"akinsho/toggleterm.nvim", tag = 'v2.*', config = function()
-  require("toggleterm").setup( {
-      direction = "float",
-  })
-end}
-
+    use {
+        "akinsho/toggleterm.nvim", tag = 'v2.*',
+        config = function()
+            require("toggleterm").setup( {
+                direction = "float",
+            })
+        end
+    }
 ----------------------------------------------------------------------------
 end,
 config = {

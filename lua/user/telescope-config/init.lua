@@ -14,8 +14,16 @@ telescope.setup {
     mappings = {
       n = {
         ["q"] = actions.close
-      },
-    },
+      }
+    }
+  },
+  extensions = {
+    media_files = {
+      -- filetypes whitelist
+      -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+      filetypes = {"png", "webp", "jpg", "jpeg"},
+      find_cmd = "rg" -- find command (defaults to `fd`)
+    }
   },
 }
 
@@ -42,3 +50,4 @@ end)
 vim.keymap.set('n', ';e', function()
   builtin.diagnostics()
 end)
+

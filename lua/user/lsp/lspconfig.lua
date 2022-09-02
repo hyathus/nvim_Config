@@ -22,6 +22,7 @@ nvim_lsp.tsserver.setup {
   cmd = { "typescript-language-server", "--stdio" }
 }
 nvim_lsp.tailwindcss.setup {}
+
 nvim_lsp.clangd.setup{
     on_attach = on_attach,
     filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
@@ -70,3 +71,26 @@ nvim_lsp.cssmodules_ls.setup {
   }
 }
 
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+
+require("mason-lspconfig").setup {
+    ensure_installed = {
+        "tsserver",
+        "emmet_ls",
+        "clangd",
+        "cssmodules_ls",
+        "cssls",
+        "html",
+        "jsonls",
+        "pyright",
+        "tailwindcss",
+    }
+}

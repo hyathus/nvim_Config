@@ -1,31 +1,30 @@
 local status, ts = pcall(require, "nvim-treesitter.configs")
 if (not status) then return end
-ts.compilers = {"gcc"}
+ts.compilers = {"clang"}
 
 ts.setup {
-highligt = {
-	enable = false 
-	},
-	ensure_installed = {
-       "html",
-       "lua",
-       "tsx",
-       "css",
-       "javascript",
-       "python",
-       "cpp",
-       "c_sharp"
+    ensure_installed = {
+        "html",
+        "lua",
+        "json",
+        "tsx",
+        "css",
+        "python",
+        "cpp",
+        "c_sharp",
+        "javascript",
+        "typescript",
+        "scss",
     },
-      autotag = {
-	enable = true
-	},
+    highlight = { enable = true },
+	autotag = { enable = true },
 	rainbow = {
-	enable = true,
-	extended_mode = false,
-	max_file_lines = nil,
+	    enable = true,
+	    extended_mode = false,
+	    max_file_lines = nil,
 	},
     autopairs = {
-	enable = true,
+	    enable = true,
 	}
 }
 
