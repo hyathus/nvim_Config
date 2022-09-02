@@ -41,15 +41,20 @@ return require('packer').startup({
 -----------------------------------------------------------------
 	use 'folke/tokyonight.nvim'
 	use 'projekt0n/github-nvim-theme'
-	-- use 'joshdick/onedark'
+	use "EdenEast/nightfox.nvim"
 	-- safv12/andromeda.vim
 ------------------------------------------------------------------
 ----        nvim
 ------------------------------------------------------------------
-    use 'kyazdani42/nvim-tree.lua'
+    use {
+	    'kyazdani42/nvim-tree.lua',
+	    config = function()
+		    require('user.nvim-tree')
+	    end
+    }
     use {
         'akinsho/bufferline.nvim', tag = "v2.*",  
-        config = function() 
+        config = function()
             require('bufferline').setup()
         end,
     }
@@ -82,7 +87,7 @@ return require('packer').startup({
       "williamboman/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
       config = function()
-        require("user.lsp.lspconfig").setup()
+        require("user.lsp.lspconfig")
     end,
      }
   -- use {
@@ -151,26 +156,16 @@ return require('packer').startup({
 ------------------------------------------------------------------------------
 --                          IDE
 ------------------------------------------------------------------------------
-      use{
+    use{
 	'windwp/nvim-autopairs',
-      config = function()
-           require('nvim-autopairs').setup({
- fast_wrap = {
-        map = '<c-t>',
-        chars = { '{', '[', '(', '"', "'" },
-        pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], '%s+', ''),
-        end_key = '$',
-        keys = 'qwertyuiopzxcvbnmasdfghjkl',
-        check_comma = true,
-        highlight = 'Search',
-        highlight_grey = 'Comment',
-    },
-           })
-        end,
+    config = function()
+           require('nvim-autopairs').setup()
+       end,
    }
     use { -- Indent Blankline
 	    "lukas-reineke/indent-blankline.nvim",
-            config = function() require('user.indent-config')
+            config = function() 
+                require('user.indent-config')
             end,
    }
     -- Colorizer
@@ -212,10 +207,8 @@ return require('packer').startup({
          'nvim-telescope/telescope-file-browser.nvim',
        },
        config = function() 
-
            require('user.telescope-config')
            require('telescope').load_extension('media_files')
-
        end,
    }
 ----------------------------------------------------------------------------

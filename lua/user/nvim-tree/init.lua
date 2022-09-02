@@ -5,7 +5,8 @@ require("nvim-tree").setup({
     update_cwd = true,
   },
   view = {
-    adaptive_size = true,
+    adaptive_size = false,
+    width = 30,
     mappings = {
       list = {
         { key = "<space>e", action = "NvimTreeOpen" },
