@@ -1,5 +1,9 @@
 local set = vim.opt
 
+-- Themes
+vim.g.tokyonight_italic_variables = true
+vim.g.tokyonight_italic_functions = true
+
 -- File
 set.spell = false
 set.wrap = false
@@ -57,4 +61,3 @@ set.breakindent = true
 set.signcolumn = "yes:1"
 -----------------------------------------------
 vim.g.mapleader = ' '
-vim.g.python3_host_prog = "C:/Program Files/Python310/python.exe"
