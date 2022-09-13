@@ -11,9 +11,8 @@ require("mason").setup({
         }
     }
 })
-require("mason-lspconfig").setup {
+require("mason-lspconfig").setup ({
     ensure_installed = {
-        "emmet_ls",
         "clangd",
         "cssmodules_ls",
         "cssls",
@@ -21,5 +20,8 @@ require("mason-lspconfig").setup {
         "jsonls",
         "pyright",
         "tailwindcss",
+        "sumneko-lua",
+        "bashls"
     }
-}
+})
+

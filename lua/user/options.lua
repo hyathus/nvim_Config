@@ -16,7 +16,7 @@ set.scrolloff = 5
 set.timeoutlen = 300
 set.updatetime = 500
 set.hlsearch = false
-set.clipboard:prepend({"unnamedplus"})
+set.clipboard:prepend({ "unnamedplus" })
 set.smarttab = true
 set.backup = false
 set.writebackup = false
@@ -56,7 +56,7 @@ set.softtabstop = 0
 set.expandtab = true
 set.smartindent = true
 set.breakindent = true
-
+vim.cmd "syntax enable"
 --> Misc settings
 set.signcolumn = "yes:1"
 -----------------------------------------------

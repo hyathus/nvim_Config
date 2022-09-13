@@ -89,8 +89,10 @@ return require('packer').startup({
             "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-calc",
             "f3fora/cmp-spell",
-            "L3MON4D3/LuaSnip",
-            "rafamadriz/friendly-snippets",
+            {
+                "L3MON4D3/LuaSnip",
+                requires = {"rafamadriz/friendly-snippets"},
+            },
         }
         use 'jose-elias-alvarez/null-ls.nvim'
         --------------------------------------------------------------------------------
@@ -158,14 +160,17 @@ return require('packer').startup({
         use 'turbio/bracey.vim'
         use {
             "folke/trouble.nvim",
+            requires = {
+                "folke/lsp-colors.nvim",
+                "kyazdani42/nvim-web-devicons",
+            },
             config = function()
-                require("trouble").setup()
-            end
-        }
-        use {
-            'folke/lsp-colors.nvim',
-            config = function()
-                require("lsp-colors").setup()
+                require("trouble").setup {
+                    Error = "#db4b4b",
+                    Warning = "#e0af68",
+                    Information = "#0db9d7",
+                    Hint = "#10B981",
+                }
             end
         }
         -------------------------------------------------------------------------
