@@ -29,7 +29,10 @@ on_attach = function(client, bufnr)
 		end
 	end,
 
-    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities),
+    flags = {
+        debounce_text_changes = 150,
+    }
 }
 
 require("mason-lspconfig").setup_handlers ({
@@ -40,6 +43,12 @@ require("mason-lspconfig").setup_handlers ({
         nvim_lsp.cssls.setup {
             opt,
             filetypes = {"css", "scss", "less"}
+        }
+    end,
+    ["pyright"] = function ()
+        nvim_lsp.pyright.setup {
+            opt,
+            filetypes = { "python" }
         }
     end,
     ["html"] = function ()
@@ -83,6 +92,11 @@ require("mason-lspconfig").setup_handlers ({
         nvim_lsp.clangd.setup {
             opt,
             filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+        }
+    end,
+    ["omnisharp"] = function ()
+        nvim_lsp.omnisharp.setup {
+            opt,
         }
     end,
     ["sumneko_lua"] = function ()

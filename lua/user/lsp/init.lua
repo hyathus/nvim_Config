@@ -1,5 +1,5 @@
-require('user/lsp/cmp')
-require('user/lsp/lsp')
+require('user.lsp.cmp')
+require('user.lsp.lsp')
 
 require("mason").setup({
     ui = {
@@ -14,6 +14,7 @@ require("mason").setup({
 require("mason-lspconfig").setup ({
     ensure_installed = {
         "clangd",
+        "omnisharp",
         "cssmodules_ls",
         "cssls",
         "html",
@@ -25,3 +26,5 @@ require("mason-lspconfig").setup ({
     }
 })
 
+require('user.lsp.null-ls')
+require('user.lsp.mason_tool')

@@ -5,6 +5,7 @@ vim.g.tokyonight_italic_variables = true
 vim.g.tokyonight_italic_functions = true
 
 -- File
+vim.cmd "set noswapfile"
 set.spell = false
 set.wrap = false
 set.ruler = true
@@ -16,7 +17,7 @@ set.scrolloff = 5
 set.timeoutlen = 300
 set.updatetime = 500
 set.hlsearch = false
-set.clipboard:prepend({ "unnamedplus" })
+set.clipboard = "unnamedplus"
 set.smarttab = true
 set.backup = false
 set.writebackup = false

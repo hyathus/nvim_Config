@@ -10,11 +10,6 @@ return require('packer').startup({
     function(use)
         use 'wbthomason/packer.nvim'
         -----------------------------------------------------------------
-        --                Vim Script
-        ------------------------------------------------------------------
-        use 'drewtempelmeyer/palenight.vim'
-        -- use'OmniSharp/omnisharp-vim'
-        -----------------------------------------------------------------
         --Optimiser
         -----------------------------------------------------------------
         use 'lewis6991/impatient.nvim'
@@ -40,8 +35,9 @@ return require('packer').startup({
         use 'folke/tokyonight.nvim'
         use "EdenEast/nightfox.nvim"
         use 'marko-cerovac/material.nvim'
-
-
+        use { "catppuccin/nvim", as = "catppuccin" }
+        use 'navarasu/onedark.nvim'
+        use 'glepnir/zephyr-nvim'
         ------------------------------------------------------------------
         ----        nvim
         ------------------------------------------------------------------
@@ -61,7 +57,7 @@ return require('packer').startup({
             'nvim-lualine/lualine.nvim',
             event = "BufRead",
             config = function()
-                require('lualine').setup()
+                require('user.lualine')
             end
         }
         use 'christoomey/vim-tmux-navigator'
@@ -71,6 +67,7 @@ return require('packer').startup({
         use {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
             "neovim/nvim-lspconfig",
         }
         --use {
@@ -95,6 +92,7 @@ return require('packer').startup({
             },
         }
         use 'jose-elias-alvarez/null-ls.nvim'
+        use 'mfussenegger/nvim-dap'
         --------------------------------------------------------------------------------
         --Commentary
         -------------------------------------------------------------------------------
@@ -160,17 +158,8 @@ return require('packer').startup({
         use 'turbio/bracey.vim'
         use {
             "folke/trouble.nvim",
-            requires = {
-                "folke/lsp-colors.nvim",
-                "kyazdani42/nvim-web-devicons",
-            },
             config = function()
-                require("trouble").setup {
-                    Error = "#db4b4b",
-                    Warning = "#e0af68",
-                    Information = "#0db9d7",
-                    Hint = "#10B981",
-                }
+                require("user.trouble_lsp")
             end
         }
         -------------------------------------------------------------------------

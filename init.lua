@@ -2,8 +2,8 @@ pcall(require, 'impatient')
 require('user.plugins')
 require('user.options')
 require('user.keymaps')
-vim.cmd 'colorscheme tokyonight'
-vim.g.tokyonight_style = "day"
-vim.g.material_style = "deep ocean"
-
 require("user.lsp")
+require("user.onedark")
+
+vim.cmd 'colorscheme onedark'
+vim.g.material_style = "palenight"
