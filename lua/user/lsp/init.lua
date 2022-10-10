@@ -27,8 +27,6 @@ require("mason-lspconfig").setup({
 	},
 })
 
-require("user.lsp.null-ls")
-
 require("mason-tool-installer").setup({
 	ensure_installed = {
 
@@ -44,9 +42,10 @@ require("mason-tool-installer").setup({
 		"cmakelang",
 		"write-good",
 		"flake8",
-		"xo",
 		"selene",
 		"shellcheck",
 	},
 	run_on_start = true,
 })
+
+require("user.lsp.null_ls")

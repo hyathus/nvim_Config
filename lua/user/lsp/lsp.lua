@@ -1,6 +1,6 @@
 local nvim_lsp = require("lspconfig")
 
-local has_formatter = { "gopls", "html", "rust_analyzer", "sumneko_lua", "tsserver" }
+local has_formatter = { "gopls", "html", "rust_analyzer", "sumneko_lua", "tsserver", "cssls" }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -14,8 +14,8 @@ local opt = {
         vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
         local opts = { buffer = bufnr }
         vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "<Leader>i", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "<Leader>r", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "<Leader>j", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "<Leader>k", vim.lsp.buf.rename, opts)
         local should_format = true
         for _, value in pairs(has_formatter) do
             if client.name == value then
@@ -40,6 +40,32 @@ require("mason-lspconfig").setup_handlers({
     ["tsserver"] = function()
         nvim_lsp.tsserver.setup({
             opt,
+            server = {
+                settings = {
+                    typescript = {
+                        inlayHints = {
+                            includeInlayParameterNameHints = "all",
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayVariableTypeHints = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
+                            includeInlayEnumMemberValueHints = true,
+                        },
+                    },
+                    javascript = {
+                        inlayHints = {
+                            includeInlayParameterNameHints = "all",
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayVariableTypeHints = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
+                            includeInlayEnumMemberValueHints = true,
+                        },
+                    },
+                },
+            },
             filetypes = {
                 "javascript",
                 "javascriptreact",
@@ -116,27 +142,25 @@ require("mason-lspconfig").setup_handlers({
         })
     end,
     ["sumneko_lua"] = function()
-        nvim_lsp.sumneko_lua.setup(require("lua-dev").setup({
+        nvim_lsp.sumneko_lua.setup({
+            opt,
             settings = {
                 Lua = {
-                    format = {
-                        enable = false,
-                    },
-                    hint = {
-                        enable = true,
-                        arrayIndex = "Disable", -- "Enable", "Auto", "Disable"
-                        await = true,
-                        paramName = "Disable", -- "All", "Literal", "Disable"
-                        paramType = false,
-                        semicolon = "Disable", -- "All", "SameLine", "Disable"
-                        setType = true,
+                    runtime = {
+                        version = "LuaJIT",
                     },
                     diagnostics = {
-                        globals = { "P" },
+                        globals = { "vim" },
+                    },
+                    workspace = {
+                        library = vim.api.nvim_get_runtime_file("", true),
+                    },
+                    telemetry = {
+                        enable = false,
                     },
                 },
             },
-        }))
+        })
     end,
 })
 

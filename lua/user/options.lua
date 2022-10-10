@@ -5,7 +5,7 @@ vim.g.tokyonight_italic_variables = true
 vim.g.tokyonight_italic_functions = true
 
 -- File
-vim.cmd "set noswapfile"
+set.swapfile = false
 set.spell = false
 set.wrap = false
 set.ruler = true
@@ -14,6 +14,7 @@ set.mouse = "a"
 set.encoding = "UTF-8"
 set.fileencoding = "UTF-8"
 set.scrolloff = 5
+set.sidescrolloff = 5
 set.timeoutlen = 300
 set.updatetime = 500
 set.hlsearch = false
@@ -34,7 +35,7 @@ set.cursorline = true
 set.ignorecase = true
 
 --> Fold Settings
-set.colorcolumn = '80'
+set.colorcolumn = "120"
 set.foldenable = true
 set.foldmethod = "expr"
 set.foldexpr = "nvim_treesitter#foldexpr()"
@@ -57,8 +58,8 @@ set.softtabstop = 0
 set.expandtab = true
 set.smartindent = true
 set.breakindent = true
-vim.cmd "syntax enable"
+vim.cmd("syntax enable")
 --> Misc settings
 set.signcolumn = "yes:1"
 -----------------------------------------------
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
